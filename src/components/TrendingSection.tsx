@@ -34,7 +34,7 @@ const TRENDING_ITEMS = [
         id: 4,
         title: "Masala Dosa",
         category: "South Indian",
-        image: "https://images.unsplash.com/photo-1589301760865-bcd48aa819d5?w=500&auto=format&fit=crop&q=60",
+        image: "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=500&auto=format&fit=crop&q=60",
         time: "20 min",
         rating: 4.7,
         calories: 220
