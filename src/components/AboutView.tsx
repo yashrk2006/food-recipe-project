@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { ChefHat, Database, Globe, Heart, ArrowRight, Dna } from 'lucide-react';
+import { Database, Heart, ArrowRight, Dna } from 'lucide-react';
 
 const AboutView: React.FC = () => {
     const { scrollYProgress } = useScroll();

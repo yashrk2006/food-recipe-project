@@ -8,7 +8,7 @@ export interface Molecule {
 export interface Ingredient {
     id: string;
     name: string;
-    state: 'raw' | 'cooked' | 'dried' | 'roasted';
+    state: 'raw' | 'cooked' | 'dried' | 'roasted' | 'cubed' | 'simmered' | 'boiled' | 'fresh' | 'melted' | 'fermented' | 'grilled';
     molecularProfile: Molecule[];
     carbonFootprint: number; // kg CO2e per kg
     glycemicIndex: number;

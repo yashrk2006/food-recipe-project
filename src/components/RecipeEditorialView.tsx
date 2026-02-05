@@ -1,6 +1,6 @@
 import React from 'react';
-import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
-import { Clock, BarChart3, Star, ChefHat, Info, ArrowRight } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Clock, BarChart3, Star, ChefHat, ArrowRight } from 'lucide-react';
 import type { Recipe, Ingredient, PairingCandidate } from '../types';
 import CarbonHealthDashboard from './CarbonHealthDashboard';
 import FlavorRadar from './FlavorRadar';
@@ -17,24 +17,6 @@ interface RecipeEditorialViewProps {
     onCandidateClick: (candidate: PairingCandidate) => void;
     onApplySwap: () => void;
 }
-
-const ParallaxImage = ({ src }: { src: string }) => {
-    const { scrollYProgress } = useScroll();
-    const y = useTransform(scrollYProgress, [0, 1], [0, -50]);
-
-    return (
-        <div className="relative h-[600px] rounded-3xl overflow-hidden group">
-            <motion.div style={{ y }} className="absolute inset-0 h-[120%] w-full">
-                <img
-                    src={src}
-                    className="w-full h-full object-cover"
-                    alt="Chef's Technique"
-                />
-            </motion.div>
-            <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500" />
-        </div>
-    );
-};
 
 const RecipeEditorialView: React.FC<RecipeEditorialViewProps> = ({
     recipe,
@@ -205,7 +187,7 @@ const RecipeEditorialView: React.FC<RecipeEditorialViewProps> = ({
                             {/* RADAR CHART AREA */}
                             <div className="mb-8">
                                 {selectedIngredient ? (
-                                    <FlavorRadar original={selectedIngredient} substitute={activeCandidate} />
+                                    <FlavorRadar original={selectedIngredient} substitute={activeCandidate || undefined} />
                                 ) : (
                                     <div className="h-[400px] flex items-center justify-center text-muted-foreground">
                                         Select an ingredient from the list to view its flavor profile.
@@ -414,7 +396,7 @@ const RecipeEditorialView: React.FC<RecipeEditorialViewProps> = ({
 
                                 <span className="text-3xl mb-2">{['🌿', '🥩', '🍋', '🧂', '🌶️', '🧅', '🧄', '🧀'][i % 8]}</span>
                                 <span className="font-bold text-sm">{ing.name}</span>
-                                <span className="text-[10px] text-muted-foreground uppercase tracking-wider mt-1">
+                                <span className="text-10px text-muted-foreground uppercase tracking-wider mt-1">
                                     {['Terpenes', 'Amino Acids', 'Acids', 'Minerals', 'Capsaicin', 'Sulfites', 'Allicin', 'Lipids'][i % 8]}
                                 </span>
                             </motion.div>
@@ -452,7 +434,5 @@ const RecipeEditorialView: React.FC<RecipeEditorialViewProps> = ({
         </div>
     );
 };
-
-
 
 export default RecipeEditorialView;
