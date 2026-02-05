@@ -5,114 +5,60 @@ import ComparisonTable from './components/ComparisonTable';
 import { api } from './services/api';
 import type { Recipe, Ingredient, PairingCandidate } from './types';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Moon, Sun } from 'lucide-react';
-import RecipeEditorialView from './components/RecipeEditorialView';
-import APIDocsView from './components/APIDocsView';
-import AboutView from './components/AboutView';
+import { Moon, Sun, ArrowLeft } from 'lucide-react';
+// ... imports
 
 // Forces new Vercel build
 function App() {
-  const [currentView, setCurrentView] = useState<'home' | 'api' | 'about'>('home');
-  const [activeRecipe, setActiveRecipe] = useState<Recipe | null>(null);
-  const [selectedIngredient, setSelectedIngredient] = useState<Ingredient | null>(null);
-  const [pairingCandidates, setPairingCandidates] = useState<PairingCandidate[]>([]);
-  const [activeCandidate, setActiveCandidate] = useState<PairingCandidate | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [isSwapping, setIsSwapping] = useState(false);
-  const [isDark, setIsDark] = useState(false);
+  // ... state
 
-  // Initialize theme
-  useEffect(() => {
-    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      setIsDark(true);
-      document.documentElement.classList.add('dark');
-    }
-  }, []);
-
-  const toggleTheme = () => {
-    setIsDark(!isDark);
-    document.documentElement.classList.toggle('dark');
-  };
-
-  const handleSearch = async (term: string) => {
-    console.log("Searching for:", term);
-    setLoading(true);
-    setActiveRecipe(null);
-    setSelectedIngredient(null);
-    setPairingCandidates([]);
-    setActiveCandidate(null);
-    try {
-      const recipe = await api.getContext(term);
-      setActiveRecipe(recipe);
-
-      // UX Improvement: Auto-select the first ingredient to avoid "empty" feeling
-      if (recipe && recipe.ingredients.length > 0) {
-        // Small delay to let the list animate in first
-        setTimeout(() => {
-          handleIngredientClick(recipe.ingredients[0]);
-        }, 800);
-      }
-    } catch (e) {
-      console.error(e);
-    } finally {
-      setLoading(false);
+  const handleBack = () => {
+    if (currentView !== 'home') {
+      setCurrentView('home');
+    } else if (activeRecipe) {
+      setActiveRecipe(null);
+      setTimeout(() => document.getElementById('search-section')?.scrollIntoView({ behavior: 'smooth' }), 100);
     }
   };
 
-  const handleIngredientClick = async (ing: Ingredient) => {
-    if (selectedIngredient?.id === ing.id) return;
-    setSelectedIngredient(ing);
-    setIsSwapping(true);
-    // Fetch pairings
-    try {
-      const candidates = await api.getPairing(ing);
-      setPairingCandidates(candidates);
-      setActiveCandidate(null); // Reset choice
-    } catch (e) {
-      console.error(e);
-    } finally {
-      setIsSwapping(false);
-    }
-  };
+  const showBackButton = currentView !== 'home' || activeRecipe !== null;
 
-  const handleApplySwap = () => {
-    if (!activeRecipe || !selectedIngredient || !activeCandidate) return;
-
-    // Create a new recipe state with the swapped ingredient
-    const newIngredients = activeRecipe.ingredients.map(ing =>
-      ing.id === selectedIngredient.id ? activeCandidate.ingredient : ing
-    );
-
-    setActiveRecipe({
-      ...activeRecipe,
-      ingredients: newIngredients
-    });
-
-    // Reset selection after swap to show the new state
-    setSelectedIngredient(null);
-    setPairingCandidates([]);
-    setActiveCandidate(null);
-  };
+  // ...
 
   return (
     <div className="min-h-screen bg-background text-foreground font-sans selection:bg-primary/30 pb-20 bg-ambient overflow-x-hidden transition-colors duration-500">
-      {/* Floating Ambient Shapes */}
-      <div className="fixed top-[-20%] left-[-10%] w-[500px] h-[500px] rounded-full bg-primary/5 blur-3xl pointer-events-none mix-blend-multiply animate-blob dark:bg-primary/10" />
-      <div className="fixed top-[20%] right-[-10%] w-[400px] h-[400px] rounded-full bg-accent/5 blur-3xl pointer-events-none mix-blend-multiply animate-blob animation-delay-2000 dark:bg-accent/10" />
+      {/* ... */}
 
       {/* Navigation */}
       <nav className="fixed top-6 inset-x-0 mx-auto max-w-5xl h-16 bg-white/70 dark:bg-black/70 backdrop-blur-xl z-50 flex items-center px-6 justify-between rounded-full border border-white/20 shadow-sm transition-all duration-500">
-        <div
-          className="flex items-center gap-2 cursor-pointer"
-          onClick={() => setCurrentView('home')}
-        >
-          <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-primary to-orange-400 flex items-center justify-center text-white shadow-lg shadow-primary/20" >
-            <span className="font-bold text-xs">AF</span>
-          </div>
-          <span className="text-xl font-bold tracking-tight">
-            AeroFlavor
+        <div className="flex items-center gap-4">
+          {showBackButton ? (
+            <button
+              onClick={handleBack}
+              className="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors group"
+              aria-label="Go Back"
+            >
+              <ArrowLeft className="w-5 h-5 text-foreground group-hover:-translate-x-1 transition-transform" />
+            </button>
+          ) : (
+            <div
+              className="flex items-center gap-2 cursor-pointer"
+              onClick={() => setCurrentView('home')}
+            >
+              <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-primary to-orange-400 flex items-center justify-center text-white shadow-lg shadow-primary/20" >
+                <span className="font-bold text-xs">AF</span>
+              </div>
+            </div>
+          )}
+
+          <span className="text-xl font-bold tracking-tight hidden sm:block">
+            {currentView === 'home' && !activeRecipe ? 'AeroFlavor' :
+              currentView === 'about' ? 'Our Mission' :
+                currentView === 'api' ? 'API Reference' :
+                  activeRecipe ? activeRecipe.name : 'AeroFlavor'}
           </span>
         </div>
+
         <div className="flex items-center gap-6">
           <button
             onClick={() => setCurrentView('home')}
