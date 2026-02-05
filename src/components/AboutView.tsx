@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { Database, Heart, ArrowRight, Dna } from 'lucide-react';
+import { Microscope, ArrowRight, Dna } from 'lucide-react';
 
 const AboutView: React.FC = () => {
     const { scrollYProgress } = useScroll();
@@ -74,22 +74,21 @@ const AboutView: React.FC = () => {
                                 The <span className="text-primary">Problem</span><br />With Food Today.
                             </h2>
                             <p className="text-xl text-muted-foreground leading-relaxed">
-                                For centuries, culinary innovation has been limited by human intuition and trial-and-error.
-                                Chefs pair ingredients based on tradition, not data. We treat flavor not as an art, but as a solvable graph optimization problem.
+                                Traditional recipe platforms rely on subjective "tastes-like" guesses, failing to provide accurate alternatives for allergies, dietary restrictions, or sustainability.
                             </p>
                         </motion.div>
 
-                        <div className="space-y-8">
+                        <div className="space-y-12">
                             {[
                                 {
-                                    icon: Database,
-                                    title: "1M+ Compounds",
-                                    desc: "The world's largest indexed library of volatile organic compounds, mapped to flavor perception."
+                                    icon: Microscope,
+                                    title: "Molecular Twins",
+                                    desc: "AeroFlavor utilizes Foodoscope’s molecular data to identify objective 'chemical twins' that preserve the authentic flavor profile of any dish."
                                 },
                                 {
                                     icon: Dna,
-                                    title: "Genetic Matching",
-                                    desc: "Predicting human receptor response to novel combinations using proprietary biological models."
+                                    title: "Computational Gastronomy",
+                                    desc: "This transforms cooking from a game of trial-and-error into a computational science, enabling precise, healthy, and culturally sensitive substitutions."
                                 },
                             ].map((item, i) => (
                                 <motion.div
@@ -100,11 +99,11 @@ const AboutView: React.FC = () => {
                                     viewport={{ once: true }}
                                     className="flex items-start gap-6 group"
                                 >
-                                    <div className="p-4 rounded-2xl bg-primary/10 text-primary group-hover:scale-110 transition-transform duration-500">
-                                        <item.icon className="w-8 h-8" />
+                                    <div className="text-primary group-hover:scale-110 transition-transform duration-500">
+                                        <item.icon className="w-10 h-10 stroke-[1.5]" />
                                     </div>
-                                    <div>
-                                        <h3 className="font-bold text-2xl mb-2 font-serif">{item.title}</h3>
+                                    <div className="border-l-2 border-primary/20 pl-6 hover:border-primary transition-colors duration-500">
+                                        <h3 className="font-bold text-2xl mb-3 font-serif">{item.title}</h3>
                                         <p className="text-muted-foreground leading-relaxed text-lg">{item.desc}</p>
                                     </div>
                                 </motion.div>
@@ -151,7 +150,7 @@ const AboutView: React.FC = () => {
                             className="absolute inset-0 rounded-[3rem] overflow-hidden shadow-2xl"
                         >
                             <img
-                                src="https://images.unsplash.com/photo-1621857053359-9a74a44b8fd5?q=80&w=2000&auto=format&fit=crop"
+                                src="https://images.unsplash.com/photo-1556910103-1c02745a30bf?q=80&w=2000&auto=format&fit=crop"
                                 className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000"
                             />
                         </motion.div>
