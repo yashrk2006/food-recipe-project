@@ -7,13 +7,20 @@ const IMAGE_DB: Record<string, string[]> = {
         'https://images.unsplash.com/photo-1495521821757-a1efb6729352?q=80&w=2000&auto=format&fit=crop', // Rustic table
         'https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=2000&auto=format&fit=crop', // Banquet
     ],
-    'beef': [
-        'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?q=80&w=2000&auto=format&fit=crop', // Rich stew
-        'https://images.unsplash.com/photo-1547051912-881e7d8258e7?q=80&w=2000&auto=format&fit=crop', // Steak plated
+    'curry': [
+        'https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=2000&auto=format&fit=crop', // Butter Chicken
+        'https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=2000&auto=format&fit=crop', // Paneer
     ],
     'chicken': [
-        'https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?q=80&w=2000&auto=format&fit=crop', // Roast chicken
-        'https://images.unsplash.com/photo-1532550907401-a500c9a57435?q=80&w=2000&auto=format&fit=crop', // Grilled chicken
+        'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=2000&auto=format&fit=crop', // Chicken Tikka
+        'https://images.unsplash.com/photo-1563379091339-03b279f80336?w=2000&auto=format&fit=crop', // Biryani
+    ],
+    'rice': [
+        'https://images.unsplash.com/photo-1596797038530-2c107229654b?w=2000&auto=format&fit=crop', // Biryani Rice
+        'https://images.unsplash.com/photo-1516714435131-44d6b64dc6a2?w=2000&auto=format&fit=crop', // Jeera Rice
+    ],
+    'paneer': [
+        'https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=2000&auto=format&fit=crop', // Palak Paneer
     ],
     'pasta': [
         'https://images.unsplash.com/photo-1473093295043-cdd812d0e601?q=80&w=2000&auto=format&fit=crop', // Green pesto
@@ -38,8 +45,10 @@ export const getRecipeImage = (query: string): string => {
     const term = query.toLowerCase();
 
     let key = 'default';
-    if (term.includes('beef') || term.includes('steak') || term.includes('meat') || term.includes('stew') || term.includes('pork') || term.includes('lamb')) key = 'beef';
-    else if (term.includes('chicken') || term.includes('bird') || term.includes('roast') || term.includes('turkey')) key = 'chicken';
+    if (term.includes('curry') || term.includes('masala') || term.includes('gravy') || term.includes('dal') || term.includes('makhani')) key = 'curry';
+    else if (term.includes('paneer') || term.includes('cottage cheese')) key = 'paneer';
+    else if (term.includes('rice') || term.includes('biryani') || term.includes('pulao')) key = 'rice';
+    else if (term.includes('chicken') || term.includes('murgh') || term.includes('tikka')) key = 'chicken';
     else if (term.includes('pasta') || term.includes('spaghetti') || term.includes('noodle') || term.includes('macaroni') || term.includes('italian')) key = 'pasta';
     else if (term.includes('salad') || term.includes('lettuce') || term.includes('veg') || term.includes('green') || term.includes('vegan')) key = 'salad';
     else if (term.includes('cake') || term.includes('sweet') || term.includes('chocolate') || term.includes('desert') || term.includes('cookie') || term.includes('pie')) key = 'desert';

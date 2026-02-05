@@ -43,7 +43,7 @@ const AtomizerSearch: React.FC<AtomizerSearchProps> = ({ onSearch, className }) 
                     type="text"
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
-                    placeholder="Enter a recipe to decompose (e.g., 'Beef Stew')"
+                    placeholder="Enter a recipe to decompose (e.g., 'Butter Chicken')"
                     className={cn(
                         "block w-full pl-11 pr-12 py-4 bg-background/80 backdrop-blur-md border border-input rounded-2xl",
                         "text-lg shadow-lg transition-all duration-300",

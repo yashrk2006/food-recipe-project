@@ -5,39 +5,39 @@ import { Flame, Clock, Star, ArrowRight } from 'lucide-react';
 const TRENDING_ITEMS = [
     {
         id: 1,
-        title: "Spicy Basil Chicken",
-        category: "Asian Fusion",
-        image: "https://images.unsplash.com/photo-1564834724105-918b73d1b9e0?w=500&auto=format&fit=crop&q=60",
-        time: "25 min",
-        rating: 4.8,
-        calories: 320
+        title: "Butter Chicken (Murgh Makhani)",
+        category: "North Indian",
+        image: "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=500&auto=format&fit=crop&q=60",
+        time: "45 min",
+        rating: 4.9,
+        calories: 480
     },
     {
         id: 2,
-        title: "Avocado Toast Deluxe",
-        category: "Breakfast",
-        image: "https://images.unsplash.com/photo-1525351463974-b1ad7d95d488?w=500&auto=format&fit=crop&q=60",
-        time: "10 min",
-        rating: 4.9,
-        calories: 280
+        title: "Paneer Tikka Masala",
+        category: "Vegetarian",
+        image: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=500&auto=format&fit=crop&q=60",
+        time: "35 min",
+        rating: 4.8,
+        calories: 360
     },
     {
         id: 3,
-        title: "Truffle Mushroom Pasta",
-        category: "Italian",
-        image: "https://images.unsplash.com/photo-1556761223-4c4282c73f77?w=500&auto=format&fit=crop&q=60",
-        time: "40 min",
-        rating: 4.7,
-        calories: 550
+        title: "Hyderabadi Biryani",
+        category: "Royal Mughlai",
+        image: "https://images.unsplash.com/photo-1563379091339-03b279f80336?w=500&auto=format&fit=crop&q=60",
+        time: "60 min",
+        rating: 4.9,
+        calories: 650
     },
     {
         id: 4,
-        title: "Berry Acai Bowl",
-        category: "Healthy",
-        image: "https://images.unsplash.com/photo-1590301157890-4810ed352733?w=500&auto=format&fit=crop&q=60",
-        time: "15 min",
-        rating: 4.6,
-        calories: 210
+        title: "Masala Dosa",
+        category: "South Indian",
+        image: "https://images.unsplash.com/photo-1589301760865-bcd48aa819d5?w=500&auto=format&fit=crop&q=60",
+        time: "20 min",
+        rating: 4.7,
+        calories: 220
     }
 ];
 
