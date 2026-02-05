@@ -38,7 +38,7 @@ const IMAGE_DB: Record<string, string[]> = {
         'https://images.unsplash.com/photo-1533089862017-5614ca671446?q=80&w=2000&auto=format&fit=crop', // Pancakes
         'https://images.unsplash.com/photo-1525351463974-b1ad7d95d488?q=80&w=2000&auto=format&fit=crop', // Toast
         'https://images.unsplash.com/photo-1482049016688-2d3e1b311543?q=80&w=2000&auto=format&fit=crop', // Eggs toast
-    ]
+    ],
     'biryani': [
         'https://images.unsplash.com/photo-1563379091339-03b279f80336?w=2000&auto=format&fit=crop', // Chicken Biryani
         'https://images.unsplash.com/photo-1589302168068-964664d93dc0?w=2000&auto=format&fit=crop', // Hyderabadi Biryani

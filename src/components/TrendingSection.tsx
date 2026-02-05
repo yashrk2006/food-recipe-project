@@ -75,10 +75,10 @@ const TrendingSection: React.FC<{ onRecipeClick?: (recipeName: string) => void }
                                 alt={item.title}
                                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                             />
-                            <div className="absolute top-3 left-3 bg-white/90 dark:bg-black/80 backdrop-blur-md px-2 py-1 rounded-full text-xs font-bold text-foreground shadow-sm">
+                            <div className="absolute top-3 left-3 bg-white/90 dark:bg-black/80 backdrop-blur-md px-2 py-1 rounded-full text-xs font-bold text-black dark:text-white shadow-sm">
                                 {item.category}
                             </div>
-                            <button className="absolute bottom-3 right-3 p-2 bg-white/90 dark:bg-black/80 backdrop-blur-md rounded-full text-foreground shadow-sm opacity-0 group-hover:opacity-100 transition-opacity translate-y-2 group-hover:translate-y-0">
+                            <button className="absolute bottom-3 right-3 p-2 bg-white/90 dark:bg-black/80 backdrop-blur-md rounded-full text-black dark:text-white shadow-sm opacity-0 group-hover:opacity-100 transition-opacity translate-y-2 group-hover:translate-y-0">
                                 <ArrowRight className="w-4 h-4" />
                             </button>
                         </div>
