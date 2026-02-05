@@ -5,7 +5,7 @@ import ComparisonTable from './components/ComparisonTable';
 import { api } from './services/api';
 import type { Recipe, Ingredient, PairingCandidate } from './types';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Moon, Sun, ArrowLeft } from 'lucide-react';
+import { Moon, Sun, ArrowLeft, Menu, X } from 'lucide-react';
 import RecipeEditorialView from './components/RecipeEditorialView';
 import APIDocsView from './components/APIDocsView';
 import AboutView from './components/AboutView';
@@ -20,6 +20,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [isSwapping, setIsSwapping] = useState(false);
   const [isDark, setIsDark] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   // Initialize theme
   useEffect(() => {
@@ -139,26 +140,29 @@ function App() {
           </span>
         </div>
 
-        <div className="flex items-center gap-6">
-          <button
-            onClick={() => setCurrentView('home')}
-            className={`text-sm font-medium transition-colors hidden md:block cursor-pointer ${currentView === 'home' ? 'text-primary' : 'text-muted-foreground hover:text-foreground'}`}
-          >
-            Home
-          </button>
-          <button
-            onClick={() => setCurrentView('about')}
-            className={`text-sm font-medium transition-colors hidden md:block cursor-pointer ${currentView === 'about' ? 'text-primary' : 'text-muted-foreground hover:text-foreground'}`}
-          >
-            Mission
-          </button>
-          <button
-            onClick={() => setCurrentView('api')}
-            className={`text-sm font-medium transition-colors hidden md:block cursor-pointer ${currentView === 'api' ? 'text-primary' : 'text-muted-foreground hover:text-foreground'}`}
-          >
-            API & Docs
-          </button>
-          <div className="h-4 w-[1px] bg-border hidden md:block"></div>
+        <div className="flex items-center gap-4 md:gap-6">
+          {/* Desktop Nav */}
+          <div className="hidden md:flex items-center gap-6">
+            <button
+              onClick={() => setCurrentView('home')}
+              className={`text-sm font-medium transition-colors cursor-pointer ${currentView === 'home' ? 'text-primary' : 'text-muted-foreground hover:text-foreground'}`}
+            >
+              Home
+            </button>
+            <button
+              onClick={() => setCurrentView('about')}
+              className={`text-sm font-medium transition-colors cursor-pointer ${currentView === 'about' ? 'text-primary' : 'text-muted-foreground hover:text-foreground'}`}
+            >
+              Mission
+            </button>
+            <button
+              onClick={() => setCurrentView('api')}
+              className={`text-sm font-medium transition-colors cursor-pointer ${currentView === 'api' ? 'text-primary' : 'text-muted-foreground hover:text-foreground'}`}
+            >
+              API & Docs
+            </button>
+            <div className="h-4 w-[1px] bg-border"></div>
+          </div>
 
           <button
             onClick={toggleTheme}
@@ -173,12 +177,61 @@ function App() {
               setCurrentView('home');
               setTimeout(() => document.getElementById('search-section')?.scrollIntoView({ behavior: 'smooth' }), 100);
             }}
-            className="px-4 py-1.5 bg-foreground text-background rounded-full text-sm font-medium hover:bg-foreground/90 transition-colors shadow-lg cursor-pointer"
+            className="hidden md:block px-4 py-1.5 bg-foreground text-background rounded-full text-sm font-medium hover:bg-foreground/90 transition-colors shadow-lg cursor-pointer"
           >
             Get Started
           </button>
+
+          {/* Mobile Menu Toggle */}
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="md:hidden p-2 rounded-full hover:bg-secondary/80 transition-colors text-foreground cursor-pointer"
+          >
+            {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
         </div>
       </nav>
+
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="fixed inset-x-4 top-24 p-6 bg-white/90 dark:bg-black/90 backdrop-blur-2xl rounded-3xl border border-white/20 shadow-2xl z-40 md:hidden flex flex-col gap-4"
+          >
+            <button
+              onClick={() => { setCurrentView('home'); setIsMenuOpen(false); }}
+              className={`text-lg font-medium p-4 rounded-xl transition-colors ${currentView === 'home' ? 'bg-primary/10 text-primary' : 'hover:bg-secondary text-foreground'}`}
+            >
+              Home
+            </button>
+            <button
+              onClick={() => { setCurrentView('about'); setIsMenuOpen(false); }}
+              className={`text-lg font-medium p-4 rounded-xl transition-colors ${currentView === 'about' ? 'bg-primary/10 text-primary' : 'hover:bg-secondary text-foreground'}`}
+            >
+              Mission
+            </button>
+            <button
+              onClick={() => { setCurrentView('api'); setIsMenuOpen(false); }}
+              className={`text-lg font-medium p-4 rounded-xl transition-colors ${currentView === 'api' ? 'bg-primary/10 text-primary' : 'hover:bg-secondary text-foreground'}`}
+            >
+              API & Docs
+            </button>
+            <button
+              onClick={() => {
+                setCurrentView('home');
+                setIsMenuOpen(false);
+                setTimeout(() => document.getElementById('search-section')?.scrollIntoView({ behavior: 'smooth' }), 100);
+              }}
+              className="w-full py-4 bg-foreground text-background rounded-xl text-lg font-medium hover:bg-foreground/90 transition-colors shadow-lg"
+            >
+              Get Started
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <AnimatePresence mode="wait">
         {currentView === 'api' ? (
