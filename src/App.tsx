@@ -10,7 +10,27 @@ import { Moon, Sun, ArrowLeft } from 'lucide-react';
 
 // Forces new Vercel build
 function App() {
-  // ... state
+  const [currentView, setCurrentView] = useState<'home' | 'api' | 'about'>('home');
+  const [activeRecipe, setActiveRecipe] = useState<Recipe | null>(null);
+  const [selectedIngredient, setSelectedIngredient] = useState<Ingredient | null>(null);
+  const [pairingCandidates, setPairingCandidates] = useState<PairingCandidate[]>([]);
+  const [activeCandidate, setActiveCandidate] = useState<PairingCandidate | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [isSwapping, setIsSwapping] = useState(false);
+  const [isDark, setIsDark] = useState(false);
+
+  // Initialize theme
+  useEffect(() => {
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      setIsDark(true);
+      document.documentElement.classList.add('dark');
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    setIsDark(!isDark);
+    document.documentElement.classList.toggle('dark');
+  };
 
   const handleBack = () => {
     if (currentView !== 'home') {
@@ -23,7 +43,65 @@ function App() {
 
   const showBackButton = currentView !== 'home' || activeRecipe !== null;
 
-  // ...
+  const handleSearch = async (term: string) => {
+    console.log("Searching for:", term);
+    setLoading(true);
+    setActiveRecipe(null);
+    setSelectedIngredient(null);
+    setPairingCandidates([]);
+    setActiveCandidate(null);
+    try {
+      const recipe = await api.getContext(term);
+      setActiveRecipe(recipe);
+
+      // UX Improvement: Auto-select the first ingredient to avoid "empty" feeling
+      if (recipe && recipe.ingredients.length > 0) {
+        // Small delay to let the list animate in first
+        setTimeout(() => {
+          handleIngredientClick(recipe.ingredients[0]);
+        }, 800);
+      }
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleIngredientClick = async (ing: Ingredient) => {
+    if (selectedIngredient?.id === ing.id) return;
+    setSelectedIngredient(ing);
+    setIsSwapping(true);
+    // Fetch pairings
+    try {
+      const candidates = await api.getPairing(ing);
+      setPairingCandidates(candidates);
+      setActiveCandidate(null); // Reset choice
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setIsSwapping(false);
+    }
+  };
+
+  const handleApplySwap = () => {
+    if (!activeRecipe || !selectedIngredient || !activeCandidate) return;
+
+    // Create a new recipe state with the swapped ingredient
+    const newIngredients = activeRecipe.ingredients.map(ing =>
+      ing.id === selectedIngredient.id ? activeCandidate.ingredient : ing
+    );
+
+    setActiveRecipe({
+      ...activeRecipe,
+      ingredients: newIngredients
+    });
+
+    // Reset selection after swap to show the new state
+    setSelectedIngredient(null);
+    setPairingCandidates([]);
+    setActiveCandidate(null);
+  };
 
   return (
     <div className="min-h-screen bg-background text-foreground font-sans selection:bg-primary/30 pb-20 bg-ambient overflow-x-hidden transition-colors duration-500">
