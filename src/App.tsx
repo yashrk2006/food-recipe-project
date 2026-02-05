@@ -10,6 +10,7 @@ import RecipeEditorialView from './components/RecipeEditorialView';
 import APIDocsView from './components/APIDocsView';
 import AboutView from './components/AboutView';
 
+// Forces new Vercel build
 function App() {
   const [currentView, setCurrentView] = useState<'home' | 'api' | 'about'>('home');
   const [activeRecipe, setActiveRecipe] = useState<Recipe | null>(null);
