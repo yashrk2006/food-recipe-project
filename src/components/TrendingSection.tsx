@@ -25,7 +25,7 @@ const TRENDING_ITEMS = [
         id: 3,
         title: "Hyderabadi Biryani",
         category: "Royal Mughlai",
-        image: "https://images.unsplash.com/photo-1563379091339-03b279f80336?w=500&auto=format&fit=crop&q=60",
+        image: "https://www.licious.in/blog/wp-content/uploads/2020/12/Hyderabadi-chicken-Biryani-600x600.jpg",
         time: "60 min",
         rating: 4.9,
         calories: 650

@@ -41,7 +41,7 @@ const IMAGE_DB: Record<string, string[]> = {
     ],
     'biryani': [
         'https://images.unsplash.com/photo-1563379091339-03b279f80336?w=2000&auto=format&fit=crop', // Chicken Biryani
-        'https://images.unsplash.com/photo-1589302168068-964664d93dc0?w=2000&auto=format&fit=crop', // Hyderabadi Biryani
+        'https://www.licious.in/blog/wp-content/uploads/2020/12/Hyderabadi-chicken-Biryani-600x600.jpg', // Hyderabadi Biryani
     ],
     'dosa': [
         'https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=2000&auto=format&fit=crop', // Masala Dosa
