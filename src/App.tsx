@@ -6,7 +6,9 @@ import { api } from './services/api';
 import type { Recipe, Ingredient, PairingCandidate } from './types';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Moon, Sun, ArrowLeft } from 'lucide-react';
-// ... imports
+import RecipeEditorialView from './components/RecipeEditorialView';
+import APIDocsView from './components/APIDocsView';
+import AboutView from './components/AboutView';
 
 // Forces new Vercel build
 function App() {
