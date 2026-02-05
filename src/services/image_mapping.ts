@@ -39,20 +39,33 @@ const IMAGE_DB: Record<string, string[]> = {
         'https://images.unsplash.com/photo-1525351463974-b1ad7d95d488?q=80&w=2000&auto=format&fit=crop', // Toast
         'https://images.unsplash.com/photo-1482049016688-2d3e1b311543?q=80&w=2000&auto=format&fit=crop', // Eggs toast
     ]
+    'biryani': [
+        'https://images.unsplash.com/photo-1563379091339-03b279f80336?w=2000&auto=format&fit=crop', // Chicken Biryani
+        'https://images.unsplash.com/photo-1589302168068-964664d93dc0?w=2000&auto=format&fit=crop', // Hyderabadi Biryani
+    ],
+    'dosa': [
+        'https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=2000&auto=format&fit=crop', // Masala Dosa
+        'https://images.unsplash.com/photo-1630384060421-a4323ce5663e?w=2000&auto=format&fit=crop', // Dosa
+    ]
 };
 
 export const getRecipeImage = (query: string): string => {
     const term = query.toLowerCase();
 
     let key = 'default';
-    if (term.includes('curry') || term.includes('masala') || term.includes('gravy') || term.includes('dal') || term.includes('makhani')) key = 'curry';
+    if (term.includes('biryani') || term.includes('pulao')) key = 'biryani';
+    else if (term.includes('dosa') || term.includes('idli') || term.includes('sambar')) key = 'dosa';
+    else if (term.includes('curry') || term.includes('masala') || term.includes('gravy') || term.includes('dal') || term.includes('makhani')) key = 'curry';
     else if (term.includes('paneer') || term.includes('cottage cheese')) key = 'paneer';
-    else if (term.includes('rice') || term.includes('biryani') || term.includes('pulao')) key = 'rice';
+    else if (term.includes('rice')) key = 'rice';
     else if (term.includes('chicken') || term.includes('murgh') || term.includes('tikka')) key = 'chicken';
     else if (term.includes('pasta') || term.includes('spaghetti') || term.includes('noodle') || term.includes('macaroni') || term.includes('italian')) key = 'pasta';
     else if (term.includes('salad') || term.includes('lettuce') || term.includes('veg') || term.includes('green') || term.includes('vegan')) key = 'salad';
     else if (term.includes('cake') || term.includes('sweet') || term.includes('chocolate') || term.includes('desert') || term.includes('cookie') || term.includes('pie')) key = 'desert';
     else if (term.includes('breakfast') || term.includes('egg') || term.includes('toast') || term.includes('pancake') || term.includes('morning') || term.includes('avocado')) key = 'breakfast';
+
+    // Safety check for unknown keys
+    if (!IMAGE_DB[key]) key = 'default';
 
     const candidates = IMAGE_DB[key];
     // Return a random image from the matching category to keep it fresh
