@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Terminal, Copy, Check, Server, Shield, Zap, Code, Database } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Terminal, Copy, Check, Server, Shield, Zap, Code, Database, Globe } from 'lucide-react';
 
 const ENDPOINTS = [
     {

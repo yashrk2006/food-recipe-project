@@ -1,13 +1,11 @@
 import { useState, useEffect } from 'react';
 import AtomizerSearch from './components/AtomizerSearch';
 import TrendingSection from './components/TrendingSection';
-import FlavorRadar from './components/FlavorRadar';
-import CarbonHealthDashboard from './components/CarbonHealthDashboard';
 import ComparisonTable from './components/ComparisonTable';
 import { api } from './services/api';
 import type { Recipe, Ingredient, PairingCandidate } from './types';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Beaker, RefreshCw, CheckCircle2, Moon, Sun, Home } from 'lucide-react';
+import { Moon, Sun } from 'lucide-react';
 import RecipeEditorialView from './components/RecipeEditorialView';
 import APIDocsView from './components/APIDocsView';
 import AboutView from './components/AboutView';

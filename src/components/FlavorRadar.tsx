@@ -4,7 +4,7 @@ import type { Ingredient, PairingCandidate } from '../types';
 
 interface FlavorRadarProps {
     original: Ingredient;
-    substitute: PairingCandidate;
+    substitute?: PairingCandidate;
 }
 
 const FlavorRadar: React.FC<FlavorRadarProps> = ({ original, substitute }) => {
@@ -12,14 +12,14 @@ const FlavorRadar: React.FC<FlavorRadarProps> = ({ original, substitute }) => {
     // We need a union of molecules from both ingredients to show the full picture
     const allMolecules = new Set([
         ...original.molecularProfile.map(m => m.category),
-        ...substitute.ingredient.molecularProfile.map(m => m.category)
+        ...(substitute?.ingredient.molecularProfile.map(m => m.category) || [])
     ]);
 
     const categories = Array.from(allMolecules);
 
     const data = categories.map(cat => {
         const origMol = original.molecularProfile.find(m => m.category === cat);
-        const subMol = substitute.ingredient.molecularProfile.find(m => m.category === cat);
+        const subMol = substitute?.ingredient.molecularProfile.find(m => m.category === cat);
 
         return {
             subject: cat.charAt(0).toUpperCase() + cat.slice(1),
@@ -45,14 +45,16 @@ const FlavorRadar: React.FC<FlavorRadarProps> = ({ original, substitute }) => {
                         fill="var(--primary)"
                         fillOpacity={0.3}
                     />
-                    <Radar
-                        name={substitute.ingredient.name}
-                        dataKey="substitute"
-                        stroke="var(--accent-foreground)"
-                        strokeWidth={3}
-                        fill="var(--accent)"
-                        fillOpacity={0.5}
-                    />
+                    {substitute && (
+                        <Radar
+                            name={substitute.ingredient.name}
+                            dataKey="substitute"
+                            stroke="var(--accent-foreground)"
+                            strokeWidth={3}
+                            fill="var(--accent)"
+                            fillOpacity={0.5}
+                        />
+                    )}
                     <Tooltip
                         contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}
                         itemStyle={{ color: 'var(--foreground)' }}
@@ -66,10 +68,12 @@ const FlavorRadar: React.FC<FlavorRadarProps> = ({ original, substitute }) => {
                     <span className="w-3 h-3 rounded-full bg-primary/50 border border-primary"></span>
                     <span className="text-muted-foreground">{original.name}</span>
                 </div>
-                <div className="flex items-center gap-2">
-                    <span className="w-3 h-3 rounded-full bg-accent/50 border border-accent-foreground"></span>
-                    <span className="text-muted-foreground">{substitute.ingredient.name}</span>
-                </div>
+                {substitute && (
+                    <div className="flex items-center gap-2">
+                        <span className="w-3 h-3 rounded-full bg-accent/50 border border-accent-foreground"></span>
+                        <span className="text-muted-foreground">{substitute.ingredient.name}</span>
+                    </div>
+                )}
             </div>
         </div>
     );
