@@ -142,7 +142,7 @@ const AboutView: React.FC = () => {
 
                 {/* NEW SECTION: OUR PHILOSOPHY */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-20 items-center mb-32 border-t border-border pt-32">
-                    <div className="relative h-[600px] order-2 md:order-1">
+                    <div className="relative h-[600px] order-2 md:order-2">
                         <motion.div
                             initial={{ opacity: 0, scale: 0.9 }}
                             whileInView={{ opacity: 1, scale: 1 }}
@@ -150,12 +150,12 @@ const AboutView: React.FC = () => {
                             className="absolute inset-0 rounded-[3rem] overflow-hidden shadow-2xl"
                         >
                             <img
-                                src="https://images.unsplash.com/photo-1556910103-1c02745a30bf?q=80&w=2000&auto=format&fit=crop"
+                                src="https://img-cdn.publive.online/fit-in/1200x675/elle-india/media/post_attachments/wp-content/uploads/2022/11/feature-2022-11-10T130946.602.jpg"
                                 className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000"
                             />
                         </motion.div>
                     </div>
-                    <div className="space-y-8 order-1 md:order-2">
+                    <div className="space-y-8 order-1 md:order-1">
                         <motion.div
                             initial={{ opacity: 0, x: 50 }}
                             whileInView={{ opacity: 1, x: 0 }}
